@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '/chef-claude-icon.png'
+import logo from '/Leonardo1.png'
 
 const Header: React.FC = () => {
   return (

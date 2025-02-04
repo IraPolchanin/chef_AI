@@ -8,11 +8,6 @@ const SuggestedRecipe: React.FC = () => {
 
   useEffect(() => {
     if (recipe && recipeSection.current) {
-      // const yOffset = -window.innerHeight / 4;
-      // const element = recipeRef.current;
-      // const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
-
-      // window.scrollTo({ top: y, behavior: 'smooth' });
        recipeSection.current.scrollIntoView({behavior: "smooth"})
     }
   }, [recipe]);
@@ -23,7 +18,7 @@ const SuggestedRecipe: React.FC = () => {
 
   return (
     <section ref={recipeSection} className="SuggestedRecipe">
-      <h2>Chef Claude Recommends:</h2>
+      <h2>Chef AI Recommends:</h2>
       <article className="suggested-recipe-container" aria-live="polite">
         <ReactMarkdown>
           {recipe}
