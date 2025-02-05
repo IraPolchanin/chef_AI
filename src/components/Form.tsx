@@ -13,7 +13,6 @@ const Form: React.FC = () => {
         placeholder='e.g. oregano'
         aria-label="Add ingredient"
         name='ingredient'
-        defaultValue={'meat'}
       />
       <input type="submit" value="+ Add ingredient" />
     </form>

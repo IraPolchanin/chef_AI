@@ -26,6 +26,11 @@ export const RecipeProvider: React.FC<Props> = ({ children }) => {
     const newIngredient = formData.get('ingredient') as Ingredient;
     if (newIngredient.trim() === '' || ingredients.includes(newIngredient)) return;
     setIngredients([...ingredients, newIngredient]);
+
+    const inputElement = e.currentTarget.elements.namedItem('ingredient') as HTMLInputElement;
+    if (inputElement) {
+      inputElement.value = '';
+    }
   };
 
   async function handleRecipeShown() {
