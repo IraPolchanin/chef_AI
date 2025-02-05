@@ -18,13 +18,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 18 # Or 16, try both
+          cache: 'npm'
 
       - name: Clear npm cache
         run: npm cache clean --force
 
       - name: Install dependencies
-        run: npm ci  # Use npm ci
+        run: npm ci
 
       - name: Inject API key into environment
         run: echo "VITE_HUGGINGFACE_API_KEY=${{ secrets.VITE_HUGGINGFACE_API_KEY }}" > .env
@@ -37,21 +38,23 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { Octokit } = require('@octokit/rest');
-            const appOctokit = new Octokit({
-              auth: `Bearer ${{ secrets.GITHUB_TOKEN }}`
-            })
+            (async () => { // Wrap in an async IIFE
+              const { Octokit } = await import('@octokit/rest'); // Dynamic import
+              const appOctokit = new Octokit({
+                auth: `Bearer ${{ secrets.GITHUB_TOKEN }}`
+              })
 
-            const { data: { id: installation_id } } = await appOctokit.rest.apps.getRepoInstallation({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            })
+              const { data: { id: installation_id } } = await appOctokit.rest.apps.getRepoInstallation({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              })
 
-            const { data: { token } } = await appOctokit.rest.apps.createInstallationAccessToken({
-              installation_id,
-            })
+              const { data: { token } } = await appOctokit.rest.apps.createInstallationAccessToken({
+                installation_id,
+              })
 
-            core.setOutput('app_token', token)
+              core.setOutput('app_token', token)
+            })(); // Immediately invoke the async function
 
       - name: Set up Git with GitHub App token
         run: |
