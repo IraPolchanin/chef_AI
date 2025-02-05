@@ -1,6 +1,7 @@
 {
   "name": "chef_AI",
   "private": true,
+  "homepage": "https://IraPolchanin.github.io/chef_AI",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
