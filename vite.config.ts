@@ -5,9 +5,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: "/chef_AI/",
-  define: {
-    "process.env.HUGGINGFACE_API_KEY": JSON.stringify(process.env.HUGGINGFACE_API_KEY)
-  },
   esbuild: {
     loader: 'tsx', // Дозволяє обробляти файли TypeScript },
   },
