@@ -25,9 +25,7 @@ jobs:
         run: npm cache clean --force
 
       - name: Install dependencies
-        run: |
-          npm ci
-          npm install @octokit/rest
+        run: npm ci
 
       - name: Inject API key into environment
         run: echo "VITE_HUGGINGFACE_API_KEY=${{ secrets.VITE_HUGGINGFACE_API_KEY }}" > .env
@@ -41,7 +39,8 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const { Octokit } = require('@octokit/rest');
+            const octokit = await import('@octokit/rest');
+            const Octokit = octokit.Octokit;
             const appOctokit = new Octokit({
               auth: `Bearer ${{ secrets.GITHUB_TOKEN }}`
             });
