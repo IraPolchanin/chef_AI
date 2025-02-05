@@ -20,8 +20,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies  # <--- This is the crucial step
+        run: npm install        # <--- The command to run
 
       - name: Inject API key into environment
         run: echo "VITE_HUGGINGFACE_API_KEY=${{ secrets.VITE_HUGGINGFACE_API_KEY }}" > .env
@@ -29,7 +29,7 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Install the GitHub App token action
+      - name: Install the GitHub App token action # This step uses @octokit/rest
         id: generate_app_token
         uses: actions/github-script@v6
         with:
