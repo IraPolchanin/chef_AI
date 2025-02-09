@@ -35,7 +35,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { default: Octokit } = await import('@octokit/rest');
+            import { Octokit } from "@octokit/core";
+            const { Octokit } = require("@octokit/core");
             const appOctokit = new Octokit({
               auth: `Bearer ${{ secrets.GITHUB_TOKEN }}`
             });
