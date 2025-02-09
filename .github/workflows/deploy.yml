@@ -16,4 +16,4 @@ jobs:
         env:
           SUPER_SECRET: ${{ secrets.HUGGINGFACE_API_KEY }}
         run: |
-          example-command "$env:SUPER_SECRET"
+          echo "$env:SUPER_SECRET"
